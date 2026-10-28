@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520" font-family="sans-serif">
+  <rect width="920" height="520" fill="#ffffff"/>
+  <text x="460" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="#232f3e">ECS Fargate — Production Architecture</text>
+  <text x="460" y="54" text-anchor="middle" font-size="13" fill="#666">Public subnets: ALB only &nbsp;|&nbsp; Private subnets: Fargate tasks &nbsp;|&nbsp; No public IPs on tasks</text>
+
+  <!-- Internet -->
+  <rect x="360" y="75" width="200" height="46" rx="8" fill="#ff9900" stroke="#232f3e"/>
+  <text x="460" y="103" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">Internet / Users</text>
+
+  <line x1="460" y1="121" x2="460" y2="145" stroke="#232f3e" stroke-width="2"/>
+  <!-- ALB -->
+  <rect x="330" y="145" width="260" height="56" rx="8" fill="#fff" stroke="#ff9900" stroke-width="2"/>
+  <text x="460" y="168" text-anchor="middle" font-size="15" font-weight="bold" fill="#232f3e">Application Load Balancer</text>
+  <text x="460" y="188" text-anchor="middle" font-size="12" fill="#666">HTTPS listener · public subnets (2 AZs)</text>
+
+  <line x1="460" y1="201" x2="460" y2="225" stroke="#232f3e" stroke-width="2"/>
+  <!-- VPC box -->
+  <rect x="60" y="225" width="800" height="265" rx="12" fill="#f2f6fa" stroke="#232f3e" stroke-dasharray="6 4"/>
+  <text x="76" y="248" font-size="13" font-weight="bold" fill="#232f3e">VPC — private subnets (tasks) · VPC endpoints for ECR / Logs / Secrets</text>
+
+  <!-- Tasks -->
+  <rect x="110" y="270" width="200" height="90" rx="8" fill="#fff" stroke="#146eb4" stroke-width="2"/>
+  <text x="210" y="298" text-anchor="middle" font-size="14" font-weight="bold" fill="#146eb4">Fargate Task 1</text>
+  <text x="210" y="318" text-anchor="middle" font-size="12" fill="#333">API container · 0.5 vCPU</text>
+  <text x="210" y="336" text-anchor="middle" font-size="12" fill="#333">Task role (least privilege)</text>
+
+  <rect x="360" y="270" width="200" height="90" rx="8" fill="#fff" stroke="#146eb4" stroke-width="2"/>
+  <text x="460" y="298" text-anchor="middle" font-size="14" font-weight="bold" fill="#146eb4">Fargate Task 2</text>
+  <text x="460" y="318" text-anchor="middle" font-size="12" fill="#333">API container · 0.5 vCPU</text>
+  <text x="460" y="336" text-anchor="middle" font-size="12" fill="#333">Autoscaled by ALB + CPU</text>
+
+  <rect x="610" y="270" width="200" height="90" rx="8" fill="#fff" stroke="#146eb4" stroke-width="2"/>
+  <text x="710" y="298" text-anchor="middle" font-size="14" font-weight="bold" fill="#146eb4">Fargate Task 3</text>
+  <text x="710" y="318" text-anchor="middle" font-size="12" fill="#333">Worker container</text>
+  <text x="710" y="336" text-anchor="middle" font-size="12" fill="#333">SQS-driven · Spot OK</text>
+
+  <!-- Arrows from ALB to tasks -->
+  <line x1="300" y1="225" x2="210" y2="270" stroke="#232f3e" stroke-width="1.5"/>
+  <line x1="460" y1="225" x2="460" y2="270" stroke="#232f3e" stroke-width="1.5"/>
+  <line x1="620" y1="225" x2="710" y2="270" stroke="#232f3e" stroke-width="1.5"/>
+
+  <!-- Bottom row -->
+  <rect x="110" y="385" width="200" height="70" rx="8" fill="#fff" stroke="#7b42bc" stroke-width="2"/>
+  <text x="210" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#7b42bc">Amazon ECR</text>
+  <text x="210" y="432" text-anchor="middle" font-size="12" fill="#333">Images · scan on push</text>
+
+  <rect x="360" y="385" width="200" height="70" rx="8" fill="#fff" stroke="#7b42bc" stroke-width="2"/>
+  <text x="460" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#7b42bc">CloudWatch Logs</text>
+  <text x="460" y="432" text-anchor="middle" font-size="12" fill="#333">awslogs · retention set</text>
+
+  <rect x="610" y="385" width="200" height="70" rx="8" fill="#fff" stroke="#7b42bc" stroke-width="2"/>
+  <text x="710" y="412" text-anchor="middle" font-size="13" font-weight="bold" fill="#7b42bc">Secrets Manager</text>
+  <text x="710" y="432" text-anchor="middle" font-size="12" fill="#333">No secrets in env vars</text>
+
+  <line x1="210" y1="360" x2="210" y2="385" stroke="#232f3e" stroke-width="1.5"/>
+  <line x1="460" y1="360" x2="460" y2="385" stroke="#232f3e" stroke-width="1.5"/>
+  <line x1="710" y1="360" x2="710" y2="385" stroke="#232f3e" stroke-width="1.5"/>
+</svg>
