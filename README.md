@@ -11,6 +11,10 @@
 > shape: private subnets, least-privilege task roles, ALB + target groups,
 > CloudWatch logging, and service autoscaling that actually saves money.
 
+## 🌍 In plain words — what is this, really?
+
+Imagine you run a food stall and, instead of renting and maintaining a whole restaurant building, you simply book a ready-to-use kitchen counter whenever you need to cook. You bring your recipe and ingredients, cook, serve customers, and leave the cleaning, repairs, and utilities to the building owner. ECS Fargate is like that for containers: you bring your packaged application, tell AWS how much CPU and memory it needs, and AWS runs it without you managing any servers underneath. You do not patch machines, guess how many servers to buy, or pay for idle ones. In technical terms, your packaged app is a task, a service keeps the right number of tasks running, and Fargate is the serverless launch type that hosts them.
+
 ## Why Fargate?
 
 Running containers on EC2 means you pay for the host *and* babysit it:
@@ -145,10 +149,6 @@ terraform destroy
 - Extremely long-lived, high-density steady state where reserved EC2 wins
   on price — measure first, don't assume.
 - Windows containers with special host requirements (check current support).
-
-## Quiz
-
-Test yourself in [quiz.md](quiz.md) — 5 questions with collapsed answers.
 
 ## Further reading
 
